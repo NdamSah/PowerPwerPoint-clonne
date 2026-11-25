@@ -1,0 +1,61 @@
+<Window x:Class="PowerPwerPoint.Media.Presentation.DialogueAction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Action"
+        Width="500" Height="430"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Type d'action" FontSize="11" Foreground="#FF6A7180" />
+        <ComboBox x:Name="ComboTypeAction" Grid.Row="0" DisplayMemberPath="Libelle" SelectedValuePath="Valeur"
+                  Margin="0,16,0,8" SelectionChanged="SurTypeModifie" />
+
+        <TextBlock Grid.Row="1" x:Name="EtiquetteDiapositive" Text="Diapositive cible" FontSize="11" Foreground="#FF6A7180" />
+        <ComboBox x:Name="DiapositiveCible" Grid.Row="1" DisplayMemberPath="Libelle" SelectedValuePath="Id" Margin="0,16,0,8" />
+
+        <TextBlock Grid.Row="2" x:Name="EtiquetteParametre" Text="Programme ou son" FontSize="11" Foreground="#FF6A7180" />
+        <Grid Grid.Row="2" Margin="0,16,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="Parametre" Grid.Column="0" Padding="4,3" />
+            <Button Grid.Column="1" Content="Parcourir…" Padding="10,3" Margin="6,0,0,0" Click="SurParcourir" />
+        </Grid>
+
+        <TextBlock Grid.Row="3" x:Name="EtiquetteArguments" Text="Arguments (facultatif)" FontSize="11" Foreground="#FF6A7180" />
+        <TextBox x:Name="Arguments" Grid.Row="3" Margin="0,16,0,8" Padding="4,3" />
+
+        <Grid Grid.Row="4" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                <TextBlock Text="Déclencheur" FontSize="11" Foreground="#FF6A7180" />
+                <ComboBox x:Name="Declencheur" DisplayMemberPath="Libelle" SelectedValuePath="Valeur" Margin="0,2,0,0" />
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Élément porteur" FontSize="11" Foreground="#FF6A7180" />
+                <ComboBox x:Name="Element" DisplayMemberPath="Nom" SelectedValuePath="Id" Margin="0,2,0,0" />
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Grid.Row="5" TextWrapping="Wrap" FontSize="11" Foreground="#FF6A7180"
+                   Text="L'action s'exécute pendant le diaporama. « Lancer un programme » exige le chemin d'un exécutable présent sur la machine." />
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Valider" Width="96" Padding="0,6" Margin="0,0,8,0" IsDefault="True" Click="SurValider" />
+            <Button Content="Annuler" Width="96" Padding="0,6" IsCancel="True" Click="SurAnnuler" />
+        </StackPanel>
+    </Grid>
+</Window>

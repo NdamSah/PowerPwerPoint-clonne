@@ -1,0 +1,18 @@
+<Window x:Class="PowerPwerPoint.Media.Presentation.FenetreCaptureZone"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="#66000000"
+        Topmost="True"
+        ShowInTaskbar="False"
+        Cursor="Cross"
+        ResizeMode="NoResize"
+        Title="Sélectionnez la zone à enregistrer">
+    <Canvas x:Name="Zone" Background="Transparent"
+            MouseLeftButtonDown="SurAppui" MouseMove="SurMouvement" MouseLeftButtonUp="SurRelachement">
+        <Rectangle x:Name="Selection" Stroke="#FF2F6FED" StrokeThickness="2" Fill="#332F6FED" Visibility="Collapsed" />
+        <TextBlock x:Name="Instruction" Text="Dessinez la zone à enregistrer · Échap pour annuler"
+                   Foreground="White" FontSize="15" Canvas.Left="30" Canvas.Top="26" />
+    </Canvas>
+</Window>

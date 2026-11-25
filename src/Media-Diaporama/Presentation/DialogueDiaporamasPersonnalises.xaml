@@ -1,0 +1,49 @@
+<Window x:Class="PowerPwerPoint.Media.Presentation.DialogueDiaporamasPersonnalises"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Diaporamas personnalisés"
+        Width="620" Height="500"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,12,0">
+            <TextBlock Text="Diaporamas" FontSize="11" Foreground="#FF6A7180" />
+            <ListBox x:Name="Liste" Height="300" Margin="0,4,0,8" SelectionChanged="SurSelectionChange">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Nom}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Content="Nouveau" Padding="10,4" Margin="0,0,0,6" Click="SurNouveau" />
+            <Button Content="Supprimer" Padding="10,4" Click="SurSupprimer" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <TextBlock Text="Nom du diaporama" FontSize="11" Foreground="#FF6A7180" />
+            <TextBox x:Name="Nom" Margin="0,2,0,8" Padding="4,3" />
+
+            <TextBlock Text="Diapositives incluses (dans l'ordre affiché)" FontSize="11" Foreground="#FF6A7180" />
+            <ListBox x:Name="Diapositives" Height="330" Margin="0,4,0,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Libelle}" IsChecked="{Binding Selectionnee, Mode=TwoWay}" Margin="2" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="Enregistrer" Width="110" Padding="0,6" Margin="0,0,8,0" Click="SurEnregistrer" />
+            <Button Content="Fermer" Width="96" Padding="0,6" IsCancel="True" Click="SurFermer" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,36 @@
+<Window x:Class="PowerPwerPoint.Media.Presentation.FenetreEnregistrementEcran"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Enregistrement de l'écran"
+        Width="360" Height="250"
+        WindowStartupLocation="Manual"
+        ResizeMode="NoResize"
+        Topmost="True">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="12"
+                   Text="La zone sélectionnée est enregistrée en AVI (MJPEG). Le son du microphone peut être ajouté en parallèle." />
+
+        <TextBlock x:Name="Chrono" Grid.Row="1" FontFamily="Consolas" FontSize="28" Margin="0,10,0,0" Text="00:00" />
+        <TextBlock x:Name="Details" Grid.Row="2" FontSize="11" Foreground="#FF6A7180" Margin="0,2,0,0" />
+
+        <StackPanel Grid.Row="3" Margin="0,10,0,0">
+            <CheckBox x:Name="Micro" Content="Enregistrer également le microphone" IsChecked="True" Margin="0,0,0,6" />
+            <TextBlock x:Name="Message" FontSize="11" Foreground="#FF6A7180" TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Button x:Name="BoutonDemarrer" Content="● Démarrer" Padding="14,6" Margin="0,0,8,0" Click="SurDemarrer" />
+            <Button x:Name="BoutonArreter" Content="■ Arrêter et insérer" Padding="14,6" Margin="0,0,8,0"
+                    Click="SurArreter" IsEnabled="False" IsDefault="True" />
+            <Button Content="Annuler" Padding="14,6" Click="SurAnnuler" />
+        </StackPanel>
+    </Grid>
+</Window>

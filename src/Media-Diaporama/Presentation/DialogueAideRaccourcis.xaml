@@ -1,0 +1,49 @@
+<Window x:Class="PowerPwerPoint.Media.Presentation.DialogueAideRaccourcis"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Raccourcis du diaporama"
+        Width="560" Height="560"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Raccourcis clavier" FontSize="18" FontWeight="SemiBold" />
+            <TextBlock Text="Module Média, Transitions, Animations et Diaporama" FontSize="11" Foreground="#FF6A7180" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" Margin="0,12,0,0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="HORS DIAPORAMA" FontSize="11" FontWeight="SemiBold" Foreground="#FF6A7180" Margin="0,0,0,4" />
+                <TextBlock Text="F5 ......... Démarrer le diaporama depuis le début" FontFamily="Consolas" />
+                <TextBlock Text="Maj+F5 ..... Démarrer depuis la diapositive actuelle" FontFamily="Consolas" />
+                <TextBlock Text="Échap ...... Quitter le diaporama" FontFamily="Consolas" />
+
+                <TextBlock Text="NAVIGATION" FontSize="11" FontWeight="SemiBold" Foreground="#FF6A7180" Margin="0,14,0,4" />
+                <TextBlock Text="→ ↓ Page suivante Espace N ... Diapositive suivante / animation suivante" FontFamily="Consolas" TextWrapping="Wrap" />
+                <TextBlock Text="← ↑ Page précédente Retour arrière P ... Diapositive précédente" FontFamily="Consolas" TextWrapping="Wrap" />
+                <TextBlock Text="Début / Fin ....................... Première / dernière diapositive" FontFamily="Consolas" TextWrapping="Wrap" />
+                <TextBlock Text="12 + Entrée ....................... Aller à la diapositive 12" FontFamily="Consolas" TextWrapping="Wrap" />
+
+                <TextBlock Text="AFFICHAGE" FontSize="11" FontWeight="SemiBold" Foreground="#FF6A7180" Margin="0,14,0,4" />
+                <TextBlock Text="B ......... Écran noir" FontFamily="Consolas" />
+                <TextBlock Text="W ......... Écran blanc" FontFamily="Consolas" />
+                <TextBlock Text="L ......... Pointeur laser" FontFamily="Consolas" />
+                <TextBlock Text="M ......... Couper / rétablir le son" FontFamily="Consolas" />
+                <TextBlock Text="Ctrl+P .... Pause / reprise du chronomètre présentateur" FontFamily="Consolas" />
+                <TextBlock Text="F1 ......... Rappel des raccourcis" FontFamily="Consolas" />
+
+                <TextBlock Text="MODE PRÉSENTATEUR" FontSize="11" FontWeight="SemiBold" Foreground="#FF6A7180" Margin="0,14,0,4" />
+                <TextBlock Text="Notes, diapositive suivante, chronomètre total et chronomètre de la diapositive." FontFamily="Segoe UI" TextWrapping="Wrap" />
+                <TextBlock Text="Les boutons de la fenêtre présentateur rendent le focus au diaporama." FontFamily="Segoe UI" TextWrapping="Wrap" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Grid.Row="2" Content="Fermer" Width="96" Padding="0,6" HorizontalAlignment="Right" Margin="0,12,0,0"
+                IsDefault="True" IsCancel="True" Click="SurFermer" />
+    </Grid>
+</Window>

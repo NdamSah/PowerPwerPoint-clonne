@@ -1,0 +1,50 @@
+<Window x:Class="PowerPwerPoint.Media.Presentation.DialogueConfigurationDiaporama"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Configurer le diaporama"
+        Width="520" Height="470"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Type de diaporama" FontSize="11" Foreground="#FF6A7180" />
+            <ComboBox x:Name="Type" DisplayMemberPath="Libelle" SelectedValuePath="Valeur" Margin="0,2,0,10" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <CheckBox x:Name="Boucle" Content="Boucler en continu jusqu'à la touche Échap" Margin="0,2" />
+            <CheckBox x:Name="SansAnimation" Content="Afficher sans animation" Margin="0,2" />
+            <CheckBox x:Name="SansNarration" Content="Afficher sans narration" Margin="0,2" />
+            <CheckBox x:Name="Presentateur" Content="Utiliser le mode Présentateur (notes, chronomètre, diapositive suivante)" Margin="0,2" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,12,0,0">
+            <TextBlock Text="De la diapositive" VerticalAlignment="Center" FontSize="12" />
+            <TextBox x:Name="Debut" Width="56" Margin="8,0,8,0" Padding="4,2" />
+            <TextBlock Text="à" VerticalAlignment="Center" FontSize="12" Margin="0,0,8,0" />
+            <TextBox x:Name="Fin" Width="56" Padding="4,2" />
+            <TextBlock Text="(0 = début / fin)" VerticalAlignment="Center" FontSize="11" Foreground="#FF6A7180" Margin="10,0,0,0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="0,12,0,0">
+            <TextBlock Text="Diaporama personnalisé" FontSize="11" Foreground="#FF6A7180" />
+            <ComboBox x:Name="Personnalise" DisplayMemberPath="Nom" SelectedValuePath="Nom" Margin="0,2,0,0" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="4" TextWrapping="Wrap" FontSize="11" Foreground="#FF6A7180" Margin="0,14,0,0"
+                   Text="Un diaporama personnalisé remplace la plage de diapositives : seules les diapositives qu'il contient sont présentées. Les diapositives masquées restent ignorées." />
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+            <Button Content="Valider" Width="96" Padding="0,6" Margin="0,0,8,0" IsDefault="True" Click="SurValider" />
+            <Button Content="Annuler" Width="96" Padding="0,6" IsCancel="True" Click="SurAnnuler" />
+        </StackPanel>
+    </Grid>
+</Window>
