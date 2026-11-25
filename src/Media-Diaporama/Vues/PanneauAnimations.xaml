@@ -1,0 +1,169 @@
+<UserControl x:Class="PowerPwerPoint.Media.Vues.PanneauAnimations"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="380" d:DesignHeight="720"
+             Background="{StaticResource FondPanneau}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleenVersVisibilite" />
+
+        <DataTemplate x:Key="BoutonAnimation">
+            <Button Style="{StaticResource BoutonAction}" ToolTip="{Binding Nom}"
+                    Command="{Binding DataContext.AjouterAnimationCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Glyphe}" FontFamily="Segoe MDL2 Assets" FontSize="13"
+                               VerticalAlignment="Center" Foreground="{StaticResource Accent}" />
+                    <TextBlock Text="{Binding Nom}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+        </DataTemplate>
+
+        <Style x:Key="ListeAnimations" TargetType="ItemsControl">
+            <Setter Property="Margin" Value="0,0,0,6" />
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="12">
+        <StackPanel>
+            <TextBlock Text="Animation" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextePrincipal}" Margin="0,0,0,2" />
+            <TextBlock Text="Sélectionnez une cible, puis cliquez sur un effet pour l'ajouter au volet." Style="{StaticResource Etiquette}"
+                       TextWrapping="Wrap" Margin="0,0,0,8" />
+
+            <TextBlock Style="{StaticResource Etiquette}" Text="Cible" />
+            <ComboBox ItemsSource="{Binding Cibles}" SelectedItem="{Binding CibleChoisie, Mode=TwoWay}"
+                      DisplayMemberPath="Nom" Margin="0,2,0,2" />
+            <TextBlock Text="{Binding ResumeCible}" Style="{StaticResource Etiquette}" Margin="0,0,0,8" />
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="ENTRÉE" />
+            <ItemsControl ItemsSource="{Binding Entrees}" ItemTemplate="{StaticResource BoutonAnimation}" Style="{StaticResource ListeAnimations}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="EMPHASE" />
+            <ItemsControl ItemsSource="{Binding Emphases}" ItemTemplate="{StaticResource BoutonAnimation}" Style="{StaticResource ListeAnimations}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="SORTIE" />
+            <ItemsControl ItemsSource="{Binding Sorties}" ItemTemplate="{StaticResource BoutonAnimation}" Style="{StaticResource ListeAnimations}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="TRAJECTOIRES" />
+            <ItemsControl ItemsSource="{Binding Trajectoires}" ItemTemplate="{StaticResource BoutonAnimation}" Style="{StaticResource ListeAnimations}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="VOLET ANIMATION" />
+            <ListBox Style="{StaticResource ListeSimple}" Height="150" ItemsSource="{Binding Elements}"
+                     SelectedItem="{Binding Selection, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Width="20" Height="20" CornerRadius="10"
+                                    Background="{StaticResource Accent}" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Numero}" Foreground="White" FontSize="11"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel Grid.Column="1" Margin="4,0,0,0">
+                                <TextBlock Text="{Binding Resume}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Text="{Binding Detail}" Style="{StaticResource Etiquette}" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <TextBlock Text="{Binding ResumePlan}" Style="{StaticResource Etiquette}" Margin="0,0,0,6" />
+
+            <WrapPanel>
+                <Button Style="{StaticResource BoutonAction}" Content="Monter" Command="{Binding MonterCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Descendre" Command="{Binding DescendreCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Supprimer" Command="{Binding SupprimerCommand}" />
+            </WrapPanel>
+            <WrapPanel>
+                <Button Style="{StaticResource BoutonPrimaire}" Content="Aperçu" Command="{Binding ApercuCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Lire depuis la sélection" Command="{Binding ApercuSelectionCommand}" />
+            </WrapPanel>
+
+            <Border Style="{StaticResource Carte}" Margin="0,8,0,0"
+                    Visibility="{Binding AUneSelection, Converter={StaticResource BooleenVersVisibilite}}">
+                <StackPanel DataContext="{Binding Selection.Effet}">
+                    <TextBlock Style="{StaticResource TitrePanneau}" Text="OPTIONS DE L'EFFET" />
+
+                    <TextBlock Style="{StaticResource Etiquette}" Text="Cible" />
+                    <ComboBox ItemsSource="{Binding DataContext.Cibles, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              SelectedValuePath="Id" SelectedValue="{Binding CibleId, Mode=TwoWay}"
+                              DisplayMemberPath="Nom" Margin="0,2,0,8" />
+
+                    <TextBlock Style="{StaticResource Etiquette}" Text="Déclencheur" />
+                    <ComboBox ItemsSource="{Binding DataContext.Declencheurs, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              SelectedValuePath="Valeur" SelectedValue="{Binding Declencheur, Mode=TwoWay}"
+                              DisplayMemberPath="Libelle" Margin="0,2,0,8" />
+
+                    <TextBlock Style="{StaticResource Etiquette}" Text="Direction" />
+                    <ComboBox ItemsSource="{Binding DataContext.SensPossibles, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              SelectedValuePath="Valeur" SelectedValue="{Binding Sens, Mode=TwoWay}"
+                              DisplayMemberPath="Libelle" Margin="0,2,0,8" />
+
+                    <TextBlock Style="{StaticResource Etiquette}" Text="Durée" />
+                    <Grid Margin="0,2,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="0.1" Maximum="5" TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                Value="{Binding Duree, Mode=TwoWay}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1" Style="{StaticResource Etiquette}" Width="46" TextAlignment="Right"
+                                   Text="{Binding Duree, StringFormat={}{0:0.0} s}" />
+                    </Grid>
+
+                    <TextBlock Style="{StaticResource Etiquette}" Text="Délai" />
+                    <Grid Margin="0,2,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="0" Maximum="5" TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                Value="{Binding Delai, Mode=TwoWay}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1" Style="{StaticResource Etiquette}" Width="46" TextAlignment="Right"
+                                   Text="{Binding Delai, StringFormat={}{0:0.0} s}" />
+                    </Grid>
+
+                    <TextBlock Style="{StaticResource Etiquette}" Text="Ampleur" />
+                    <Slider Minimum="0.2" Maximum="3" TickFrequency="0.1" IsSnapToTickEnabled="True"
+                            Value="{Binding Ampleur, Mode=TwoWay}" Margin="0,2,0,6" />
+
+                    <TextBlock Style="{StaticResource Etiquette}" Text="Répétition (0 = une fois, -1 = jusqu'à la fin)" />
+                    <TextBox Style="{StaticResource Champ}" Text="{Binding Repetition, Mode=TwoWay}" />
+                </StackPanel>
+            </Border>
+
+            <TextBlock Style="{StaticResource Etiquette}" TextWrapping="Wrap" Margin="0,6,0,0"
+                       Text="Un effet « en cliquant » démarre une nouvelle étape ; « avec la précédente » partage le départ ; « après la précédente » attend la fin de l'effet précédent." />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

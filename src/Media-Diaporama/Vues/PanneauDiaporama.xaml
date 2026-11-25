@@ -1,0 +1,59 @@
+<UserControl x:Class="PowerPwerPoint.Media.Vues.PanneauDiaporama"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="380" d:DesignHeight="700"
+             Background="{StaticResource FondPanneau}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="12">
+        <StackPanel>
+            <TextBlock Text="Diaporama" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextePrincipal}" Margin="0,0,0,8" />
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="DÉMARRER" />
+            <Button Style="{StaticResource BoutonPrimaire}" Content="Depuis le début (F5)" HorizontalAlignment="Stretch"
+                    Margin="0,0,0,6" Command="{Binding DepuisDebutCommand}" />
+            <Button Style="{StaticResource BoutonAction}" Content="À partir de la diapositive actuelle (Maj+F5)"
+                    HorizontalAlignment="Stretch" Command="{Binding DepuisDiapositiveCommand}" />
+            <Button Style="{StaticResource BoutonAction}" Content="Mode Présentateur" HorizontalAlignment="Stretch"
+                    Command="{Binding ModePresentateurCommand}" />
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="CONFIGURATION" />
+            <TextBlock Text="{Binding ResumeConfiguration}" Style="{StaticResource Etiquette}" TextWrapping="Wrap" Margin="0,0,0,6" />
+            <WrapPanel>
+                <Button Style="{StaticResource BoutonAction}" Content="Configurer le diaporama…" Command="{Binding ConfigurerCommand}" />
+            </WrapPanel>
+
+            <CheckBox Style="{StaticResource CaseACocher}" Content="Masquer la diapositive actuelle"
+                      IsChecked="{Binding EstMasquee, Mode=TwoWay}" />
+            <TextBlock Text="{Binding ResumeMasquage}" Style="{StaticResource Etiquette}" Margin="0,0,0,8" />
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="MINUTAGE ET ENREGISTREMENT" />
+            <TextBlock Text="{Binding ResumeMinutage}" Style="{StaticResource Etiquette}" TextWrapping="Wrap" Margin="0,0,0,6" />
+            <WrapPanel>
+                <Button Style="{StaticResource BoutonAction}" Content="Vérifier le minutage (répétition)" Command="{Binding VerifierMinutageCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Enregistrer le diaporama" Command="{Binding EnregistrerDiaporamaCommand}" />
+            </WrapPanel>
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="DIAPORAMAS PERSONNALISÉS" />
+            <ListBox Style="{StaticResource ListeSimple}" Height="86" ItemsSource="{Binding DiaporamasPersonnalises}"
+                     SelectedItem="{Binding SelectionPersonnalise, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Nom}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <WrapPanel>
+                <Button Style="{StaticResource BoutonAction}" Content="Lire la sélection" Command="{Binding LireDiaporamaPersonnaliseCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Gérer…" Command="{Binding GererDiaporamasCommand}" />
+            </WrapPanel>
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="RACCOURCIS" />
+            <TextBlock Style="{StaticResource Etiquette}" TextWrapping="Wrap"
+                       Text="Flèches / Espace : suivant et précédent · Échap : terminer · numéro + Entrée : aller à la diapositive · B / W : écran noir / blanc · L : pointeur laser · Ctrl+P : pause du chronomètre présentateur." />
+            <Button Style="{StaticResource BoutonAction}" Content="Aide des raccourcis…" Margin="0,6,0,0"
+                    Command="{Binding AideRaccourcisCommand}" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

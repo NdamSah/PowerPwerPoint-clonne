@@ -1,0 +1,175 @@
+<UserControl x:Class="PowerPwerPoint.Media.Vues.PanneauInsertion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:m="clr-namespace:PowerPwerPoint.Media.Modele"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="380" d:DesignHeight="700"
+             Background="{StaticResource FondPanneau}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleenVersVisibilite" />
+
+        <DataTemplate DataType="{x:Type m:ObjetVideo}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TitrePanneau}" Text="OPTIONS DE LECTURE" />
+                <TextBlock Text="{Binding Chemin}" Style="{StaticResource Etiquette}" TextTrimming="CharacterEllipsis" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,2">
+                    <Button Style="{StaticResource BoutonAction}" Content="Choisir un fichier…"
+                            Command="{Binding DataContext.ChoisirFichierVideoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                    <Button Style="{StaticResource BoutonAction}" Content="Lire / Rogner…"
+                            Command="{Binding DataContext.ModifierObjetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                </StackPanel>
+
+                <TextBlock Style="{StaticResource Etiquette}" Text="{Binding ResumeRognage}" Margin="0,0,0,4" />
+
+                <TextBlock Style="{StaticResource TitrePanneau}" Text="DÉBUT" />
+                <ComboBox x:Name="DemarrageVideo"
+                          SelectedValuePath="Valeur" SelectedValue="{Binding Demarrage, Mode=TwoWay}"
+                          ItemsSource="{Binding DataContext.Demarrages, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                          DisplayMemberPath="Libelle" Margin="0,0,0,6" />
+
+                <TextBlock Style="{StaticResource TitrePanneau}" Text="VOLUME" />
+                <Grid Margin="0,0,0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Slider Grid.Column="0" Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True"
+                            Value="{Binding Volume, Mode=TwoWay}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Style="{StaticResource Etiquette}" Text="{Binding Volume, StringFormat={}{0} %}" />
+                </Grid>
+
+                <CheckBox Style="{StaticResource CaseACocher}" Content="Muet" IsChecked="{Binding Muet, Mode=TwoWay}" />
+                <CheckBox Style="{StaticResource CaseACocher}" Content="Lire en boucle" IsChecked="{Binding LireEnBoucle, Mode=TwoWay}" />
+                <CheckBox Style="{StaticResource CaseACocher}" Content="Rembobiner après la lecture" IsChecked="{Binding RembobinerApresLecture, Mode=TwoWay}" />
+                <CheckBox Style="{StaticResource CaseACocher}" Content="Afficher les commandes du média" IsChecked="{Binding AfficherCommandes, Mode=TwoWay}" />
+                <CheckBox Style="{StaticResource CaseACocher}" Content="Lire en plein écran" IsChecked="{Binding LireEnPleinEcran, Mode=TwoWay}" />
+                <CheckBox Style="{StaticResource CaseACocher}" Content="Masquer lorsque la lecture n'est pas en cours" IsChecked="{Binding MasquerHorsLecture, Mode=TwoWay}" />
+
+                <Button Style="{StaticResource BoutonAction}" Content="Réinitialiser le rognage" Margin="0,8,0,0"
+                        Command="{Binding DataContext.ReinitialiserRognageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type m:ObjetAudio}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TitrePanneau}" Text="OPTIONS AUDIO" />
+                <TextBlock Text="{Binding Chemin}" Style="{StaticResource Etiquette}" TextTrimming="CharacterEllipsis" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,4">
+                    <Button Style="{StaticResource BoutonAction}" Content="Lire"
+                            Command="{Binding DataContext.LireObjetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                    <Button Style="{StaticResource BoutonAction}" Content="Réinitialiser le volume"
+                            Command="{Binding DataContext.ReinitialiserVolumeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                </StackPanel>
+
+                <Grid Margin="0,0,0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Slider Grid.Column="0" Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True"
+                            Value="{Binding Volume, Mode=TwoWay}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Style="{StaticResource Etiquette}" Text="{Binding Volume, StringFormat={}{0} %}" />
+                </Grid>
+
+                <ComboBox SelectedValuePath="Valeur" SelectedValue="{Binding Demarrage, Mode=TwoWay}"
+                          ItemsSource="{Binding DataContext.Demarrages, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                          DisplayMemberPath="Libelle" Margin="0,0,0,6" />
+
+                <CheckBox Style="{StaticResource CaseACocher}" Content="Muet" IsChecked="{Binding Muet, Mode=TwoWay}" />
+                <CheckBox Style="{StaticResource CaseACocher}" Content="Lire en boucle" IsChecked="{Binding LireEnBoucle, Mode=TwoWay}" />
+                <CheckBox Style="{StaticResource CaseACocher}" Content="Lecture en arrière-plan (toutes les diapositives)" IsChecked="{Binding LireEnArrierePlan, Mode=TwoWay}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type m:ObjetZoom}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TitrePanneau}" Text="ZOOM" />
+                <TextBlock Text="{Binding Libelle}" FontWeight="SemiBold" />
+                <TextBlock Text="{Binding ResumeCibles}" Style="{StaticResource Etiquette}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Modifier la cible…" Margin="0,8,0,0"
+                        Command="{Binding DataContext.ModifierObjetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type m:ObjetLien}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TitrePanneau}" Text="LIEN" />
+                <TextBlock Text="{Binding Cible}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding InfoBulle}" Style="{StaticResource Etiquette}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type m:ObjetAction}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TitrePanneau}" Text="ACTION" />
+                <TextBlock Text="{Binding Libelle}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Parametre}" Style="{StaticResource Etiquette}" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="12">
+        <StackPanel>
+            <TextBlock Text="Insérer" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextePrincipal}" Margin="0,0,0,8" />
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="MÉDIAS" />
+            <WrapPanel>
+                <Button Style="{StaticResource BoutonPrimaire}" Content="Vidéo…" Command="{Binding InsererVideoCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Audio…" Command="{Binding InsererAudioCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Enregistrer un son…" Command="{Binding EnregistrerSonCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Capture d'écran…" Command="{Binding EnregistrerEcranCommand}" />
+            </WrapPanel>
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="INTERACTIVITÉ" />
+            <WrapPanel>
+                <Button Style="{StaticResource BoutonAction}" Content="Zoom" Command="{Binding InsererZoomCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Lien" Command="{Binding InsererLienCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Action" Command="{Binding InsererActionCommand}" />
+            </WrapPanel>
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="OBJETS DE LA DIAPOSITIVE" />
+            <ListBox Style="{StaticResource ListeSimple}" ItemsSource="{Binding Objets}"
+                     SelectedItem="{Binding ObjetSelectionne, Mode=TwoWay}" Height="130">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding TypeLibelle}" FontSize="11" Foreground="{StaticResource TexteSecondaire}"
+                                       Width="52" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding Libelle}" TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <TextBlock Text="{Binding ResumeObjet}" Style="{StaticResource Etiquette}" TextWrapping="Wrap" Margin="0,0,0,6" />
+
+            <WrapPanel>
+                <Button Style="{StaticResource BoutonAction}" Content="Lire / Modifier…" Command="{Binding LireObjetCommand}" />
+                <Button Style="{StaticResource BoutonAction}" Content="Supprimer" Command="{Binding SupprimerObjetCommand}" />
+            </WrapPanel>
+
+            <Border Style="{StaticResource Carte}" Margin="0,8,0,0"
+                    Visibility="{Binding AUnObjet, Converter={StaticResource BooleenVersVisibilite}}">
+                <StackPanel>
+                    <ContentControl Content="{Binding ObjetSelectionne}" />
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0"
+                                Visibility="{Binding EstLien, Converter={StaticResource BooleenVersVisibilite}}">
+                        <Button Style="{StaticResource BoutonAction}" Content="Modifier le lien…" Command="{Binding ModifierObjetCommand}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0"
+                                Visibility="{Binding EstAction, Converter={StaticResource BooleenVersVisibilite}}">
+                        <Button Style="{StaticResource BoutonAction}" Content="Modifier l'action…" Command="{Binding ModifierObjetCommand}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Style="{StaticResource TitrePanneau}" Text="AIDE" />
+            <TextBlock Style="{StaticResource Etiquette}" TextWrapping="Wrap"
+                       Text="Les vidéos et sons sont copiés dans le dossier « &lt;présentation&gt;_media » afin de suivre le document. Le rognage d'une vidéo est non destructif : seuls les points d'entrée et de sortie sont enregistrés." />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
